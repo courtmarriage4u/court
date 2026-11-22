@@ -1,0 +1,42 @@
+# Insights console settings.
+# IMPORTANT: change the "repo" line below to YOUR GitHub username and repository name,
+# for example:  repo: rajesh123/courtmarriage4u-site
+backend:
+  name: github
+  repo: courtmarriage4u/court
+  branch: main
+
+# Photos you upload in the console are saved here
+media_folder: images/blog
+public_folder: /images/blog
+
+collections:
+  - name: insights
+    label: Insights (Articles)
+    label_singular: Article
+    folder: content/insights
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Publish date", name: date, widget: datetime }
+      - label: "Category"
+        name: category
+        widget: select
+        options: ["Marriage Registration", "Family and Matrimonial Law", "NRI Matters", "Wills and Succession", "General"]
+        default: "General"
+      - label: "Language"
+        name: language
+        widget: select
+        options:
+          - { label: "English", value: en }
+          - { label: "Hindi", value: hi }
+        default: en
+      - { label: "Summary (shown on the Insights page, 1-2 sentences)", name: summary, widget: text }
+      - { label: "Cover photo (about 1600 px wide, under 500 KB)", name: cover, widget: image, required: false }
+      - { label: "Describe the cover photo (for visually impaired visitors)", name: cover_alt, widget: string, required: false }
+      - { label: "Article text", name: body, widget: markdown }
+      - { label: "Draft (keep this article off the website for now)", name: draft, widget: boolean, default: false }

@@ -1,0 +1,6 @@
+HINDI AND DISCLAIMER POP-UP - NOTES
+ - Every page has an English | हिंदी switch. Hindi pages live under /hi/. The choice is remembered in the visitor's browser.
+ - Hindi wording is in i18n/hi.json. The Hindi text is a DRAFT translation: have it reviewed before launch.
+ - Disclaimer pop-up: shown on the first visit (not on the Disclaimer page), in the visitor's language.
+   "I Agree" is remembered for 180 days in that browser. "I Disagree" takes the visitor to google.com.
+ - The pop-up text is written once in pages/disclaimer.html and copied into the pop-up automatically.

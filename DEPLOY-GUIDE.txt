@@ -1,0 +1,83 @@
+COURT MARRIAGE FOR U - FINAL SITE: DEPLOYMENT GUIDE
+====================================================
+This package is the complete website (English and Hindi) with the Insights console.
+It must be deployed from GitHub to Netlify (the console and the Insights pages need Netlify's automatic build).
+
+WHAT IS INSIDE
+ layout.html            Header, menu and footer shared by every page
+ pages/                 The page contents (English). Each file is one page.
+ i18n/hi.json           All Hindi wording ("English text": "Hindi text")
+ content/insights/      Articles written in the console
+ images/                Logo, background pictures and article photos (see images/README.txt)
+ admin/                 The Insights console (/admin)
+ build.js, netlify.toml The site build (Netlify runs it automatically)
+ styles.css, script.js  Design and behaviour
+ _headers, _redirects   Security settings and a redirect from the old /services.html
+
+PAGES (each in English and Hindi, Hindi under /hi/)
+ Home, About Us, Marriage Registration, Family & Matrimonial Law, NRI Services, Wills & Probate,
+ Insights, Contact Us, Disclaimer, Privacy Policy, Terms of Use, Thank you, and a 404 page.
+
+STEP 1 - PUT THE FILES ON GITHUB
+ 1. GitHub > "+" > New repository. Name: courtmarriage4u-site. Choose Private. Create.
+ 2. Click "uploading an existing file". Unzip this package and drag EVERYTHING inside the folder
+    (all files AND folders) into the page. Click "Commit changes".
+    Check the files sit at the top level of the repository (not inside an extra folder).
+ 3. Open admin/config.yml, click the pencil icon, and change
+        repo: YOUR-GITHUB-USERNAME/YOUR-REPOSITORY-NAME
+    to your real names (example: repo: yourname/courtmarriage4u-site). Commit changes.
+
+STEP 2 - CONNECT NETLIFY
+ 1. Netlify > Add new site > Import an existing project > GitHub > courtmarriage4u-site.
+ 2. Do not change the settings (they come from netlify.toml). Click Deploy. Wait 1-2 minutes.
+ 3. If you earlier deployed by drag-and-drop, remove courtmarriage4u.com from that old site
+    (Domain management) before adding it here.
+
+STEP 3 - YOUR DOMAIN (GoDaddy)
+ 1. In the new Netlify site: Domain management > Add a domain > courtmarriage4u.com.
+ 2. Netlify shows the DNS records it needs. In GoDaddy > DNS, add exactly those records and remove old
+    "parked" records for the main address and www. (If you use GoDaddy email, add the records; do not change nameservers.)
+ 3. Wait for DNS (minutes to a few hours). Netlify then issues the free HTTPS certificate by itself.
+
+STEP 4 - MAKE FORM ENQUIRIES REACH YOUR EMAIL
+ The site has three forms: "callback" (Home), "enquiry" (Contact) and "registration" (Marriage Registration).
+ Netlify > your site > Forms. After you submit a test on the live site, the forms appear there.
+ Forms > Form notifications > Add notification > Email notification > courtmarriage4u@gmail.com.
+ Add one for each of the three forms.
+ Your Privacy Policy says submissions are kept for one year: set a yearly reminder to delete older ones in Netlify > Forms.
+
+STEP 5 - THE INSIGHTS CONSOLE (write and edit articles)
+ 1. GitHub > your picture > Settings > Developer settings > Personal access tokens > Fine-grained tokens > Generate new token.
+ 2. Name: Insights console. Expiration: 1 year. Repository access: Only select repositories > courtmarriage4u-site.
+ 3. Repository permissions > Contents: Read and write. Generate and COPY the token. Keep it private.
+ 4. Open https://courtmarriage4u.com/admin > "Sign In Using Access Token" > paste the token.
+ 5. Insights (Articles) > New Article. Fill in the title, date, category, language, summary, cover photo (about 1600 px wide,
+    under 500 KB) with a short description, and the text. Leave "Draft" off and click Publish.
+    The article appears on the Insights page in 1-2 minutes. Turn "Draft" on to hide an article.
+ 6. Set a reminder to create a new token before it expires in a year.
+
+TEST CHECKLIST (do this once the site is live)
+ [ ] Home loads and the first-visit Disclaimer pop-up appears; "I Agree" closes it.
+ [ ] The English | हिंदी switch works on every page and remembers the choice.
+ [ ] Call and WhatsApp buttons work on your phone.
+ [ ] Send a test from each of the three forms and check the email arrives.
+ [ ] Open /admin, sign in, and publish a test article, then delete it.
+ [ ] Open the site on a phone and check the menu, the sticky Call/WhatsApp bar and the map.
+
+BEFORE YOU ANNOUNCE THE SITE
+ - Have a lawyer or translator review the Hindi text (i18n/hi.json), especially the legal wording. It is a draft translation.
+ - Privacy Policy and Terms of Use are English-only for now; Hindi pages show a short Hindi note about this.
+ - Check the content once more against the Bar Council of India rules, as you planned.
+ - Create your Google Business Profile so the map listing matches the address on the site.
+
+EDITING LATER
+ - Photos and logo: replace the files in images/ (same file names).
+ - English wording: edit the file in pages/ on GitHub. If you change an English sentence, add its Hindi line to i18n/hi.json
+   (the Netlify deploy log lists any sentence that has no Hindi version yet).
+ - Disclaimer pop-up text: pages/disclaimer.html (the pop-up copies it automatically).
+
+KNOWN LIMITS
+ - Photos are not resized automatically; upload them at about 1600 px wide.
+ - An article with a future date stays hidden until the site next updates on or after that date.
+ - Forms use Netlify's built-in spam filter and a hidden trap field; no CAPTCHA is included.
+ - Analytics is not included.
