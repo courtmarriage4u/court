@@ -249,3 +249,37 @@ footer nav{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;align-content
 @media (max-width:960px){.g3{grid-template-columns:1fr 1fr}.trust4 .wrap{grid-template-columns:1fr 1fr}.trust4 div:nth-child(2){border-right:0;margin-right:0}.areas{grid-template-columns:1fr}.steps5{grid-template-columns:1fr 1fr}.checks{grid-template-columns:1fr}}
 @media (max-width:800px){.trust4 .wrap{grid-template-columns:1fr}.trust4 div{border-right:0;border-bottom:1px solid var(--line);margin:0;padding:20px 0}.row2{grid-template-columns:1fr}.langsw-m{margin-left:auto;margin-right:10px}.top .wrap .nav-toggle{margin-left:0}footer nav{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.g3,.steps5{grid-template-columns:1fr}}
+
+/* ---- phone and tablet refinements ---- */
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto}
+body{overflow-wrap:break-word}
+.disc-box{max-height:92vh;max-height:92dvh}
+@media (max-width:960px){.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:36px}}
+@media (max-width:800px){
+ .util{display:block}
+ .util .wrap{padding-top:2px;padding-bottom:2px}
+ .util .wrap>span:first-child{display:none}
+ .utilr{width:100%;justify-content:space-between;gap:12px}
+ .langsw a{padding:9px 8px}
+ .langsw-m{display:none}
+ .top .wrap{padding-top:10px;padding-bottom:10px;gap:12px}
+ .logo{width:44px;height:44px}
+ .brand{gap:10px;min-width:0}
+ .brand b{font-size:1.05rem;letter-spacing:.04em;line-height:1.1}
+ .brand small{display:none}
+ .top nav{max-height:calc(100vh - 150px);overflow-y:auto}
+ .hero h1{font-size:clamp(1.8rem,7.4vw,2.3rem);line-height:1.15}
+ .banner h1{font-size:clamp(1.65rem,7vw,2.2rem);line-height:1.15}
+ .banner .wrap{padding-top:40px;padding-bottom:40px}
+ section h2.t{font-size:clamp(1.55rem,6.4vw,2rem)}
+ .card{padding:24px 20px}
+ .band .wrap{flex-direction:column;align-items:flex-start}
+ .band h2{font-size:1.5rem}
+ .disc-box h2{font-size:1.4rem;padding:18px 18px 8px}
+ .disc-text{padding:0 18px 10px}
+ .disc-actions{padding:14px 18px}
+ .disc-actions .btn{flex:1 1 140px}
+ form[data-steps]{scroll-margin-top:100px}
+}
+@media (max-width:520px){.cta .btn{flex:1 1 100%}.wrap{padding:0 18px}.tile{padding:22px 20px}.hero .wrap{padding-top:36px;padding-bottom:40px}}
