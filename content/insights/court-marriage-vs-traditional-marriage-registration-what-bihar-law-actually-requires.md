@@ -1,6 +1,6 @@
 ---
 title: 'Court Marriage vs Traditional Marriage Registration: What Bihar Law Actually Requires'
-date: 2026-11-27T22:36:00
+date: 2026-11-27T23:04:00
 category: Marriage Registration
 language: en
 summary: 'Court Marriage vs Traditional Marriage Registration: Legal Requirements'
