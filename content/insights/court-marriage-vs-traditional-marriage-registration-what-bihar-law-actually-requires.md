@@ -4,7 +4,7 @@ date: 2026-11-27T22:36:00
 category: Marriage Registration
 language: en
 summary: 'Court Marriage vs Traditional Marriage Registration: Legal Requirements'
-cover: /images/blog/Court Marriage vs Registration.png
+cover: /images/blog/Court Marriage vs Traditional Registration.png
 cover_alt: ''
 draft: false
 ---
