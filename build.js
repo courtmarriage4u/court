@@ -85,8 +85,13 @@ function md(src) {
   return out.join('\n');
 }
 
+const parseDate = d => {
+  let s = String(d || '').trim();
+  if (/^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/.test(s) && !/(Z|[+-]\d{2}:?\d{2})$/.test(s)) s += '+05:30';
+  return new Date(s);
+};
 const fmtDate = (d, lang) => {
-  const dt = new Date(d);
+  const dt = parseDate(d);
   if (isNaN(dt)) return '';
   try { return dt.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata' }); }
   catch (e) { return dt.toDateString(); }
@@ -109,14 +114,13 @@ if (fs.existsSync(dir)) {
   for (const f of fs.readdirSync(dir)) {
     if (!f.endsWith('.md')) continue;
     const { data, body } = parseFront(fs.readFileSync(path.join(dir, f), 'utf8'));
-    if (String(data.draft).toLowerCase() === 'true') continue;          // saved as draft
-    const when = new Date(data.date);
-    if (!isNaN(when) && when > new Date()) continue;                      // dated in the future
+    if (String(data.draft).toLowerCase() === 'true') { console.log('Skipped (marked as draft): ' + f); continue; }
+    console.log('Published article: ' + f + ' (date: ' + (data.date || 'none') + ')');
     posts.push({ slug: f.replace(/\.md$/, ''), title: data.title || f, category: data.category || 'General', lang: data.language === 'hi' ? 'hi' : 'en',
       summary: data.summary || '', cover: data.cover || '', coverAlt: data.cover_alt || '', date: data.date || '', html: md(body) });
   }
 }
-posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+posts.sort((a, b) => (parseDate(b.date).getTime() || 0) - (parseDate(a.date).getTime() || 0));
 
 // ---- 3. languages (English and Hindi) ----
 const I18N = JSON.parse(read('i18n/hi.json'));
@@ -166,19 +170,9 @@ function fill(html, o) {
   return h;
 }
 
-// disclaimer pop-up: the text comes from pages/disclaimer.html, so it is written once
-const discSrc = read('pages/disclaimer.html');
-const DISC_SNIPPET = discSrc.split('<!--DISC-START-->')[1].split('<!--DISC-END-->')[0].trim();
-const DISC_HEAD = "<script>(function(){try{var t=parseInt(localStorage.getItem('cmfu_disclaimer'),10);if(t&&Date.now()-t<15552000000)return;}catch(e){}document.documentElement.className+=' disc';})();</script>";
-const MODAL = '<div id="disc-modal" class="disc-modal" role="dialog" aria-modal="true" aria-labelledby="disc-title"><div class="disc-box"><h2 id="disc-title">Disclaimer &amp; Confirmation</h2><div class="disc-text" tabindex="0">' + DISC_SNIPPET + '</div><div class="disc-actions"><button type="button" class="btn btn-brass" id="disc-yes">I Agree</button><button type="button" class="btn btn-out" id="disc-no">I Disagree</button></div></div></div>';
+// No first-visit pop-up: the full text is on the Disclaimer page and a short line is in every footer.
 function inject(html, o) {
-  let h = html;
-  if (!o.nomodal) {
-    h = h.replace('</head>', () => DISC_HEAD + '</head>');
-    h = h.replace(/<script src="\/?script\.js">/, m => MODAL + '\n' + m);
-  }
-  if (o.head) h = h.replace('</head>', () => o.head + '</head>');
-  return h;
+  return o.head ? html.replace('</head>', () => o.head + '</head>') : html;
 }
 
 // ---- 4. cards and lists of articles ----
